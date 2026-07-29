@@ -1,8 +1,8 @@
 /*
- * Data.h
- * Data node type for C++ binding
+ * common.h
+ * contains some common functions
  *
- * Copyright (c) 2009 Jonathan Beck All Rights Reserved.
+ * Copyright (c) 2026 Nikias Bassen, All Rights Reserved.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,33 +18,17 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
+#ifndef COMMON_H
+#define COMMON_H
 
-#ifndef PLIST_DATA_H
-#define PLIST_DATA_H
+#include <stddef.h>
+#include "time64.h"
 
-#include <plist/Node.h>
-#include <vector>
+#define MAC_EPOCH 978307200
 
-namespace PList
-{
+size_t dtostr(char *buf, size_t bufsize, double realval);
+int num_digits_i(int64_t i);
+int num_digits_u(uint64_t i);
+int plist_real_to_time64(double realval, Time64_T *timev);
 
-class Data : public Node
-{
-public :
-    Data(Node* parent = NULL);
-    Data(plist_t node, Node* parent = NULL);
-    Data(const Data& d);
-    Data& operator=(const Data& b);
-    Data(const std::vector<char>& buff);
-    Data(const char* buff, uint64_t size);
-    virtual ~Data();
-
-    Node* Clone() const;
-
-    void SetValue(const std::vector<char>& buff);
-    std::vector<char> GetValue() const;
-};
-
-};
-
-#endif // PLIST_DATA_H
+#endif
